@@ -10,10 +10,13 @@ import java.sql.SQLException;
  */
 public class DBConnection {
     
-    // Database configuration
-    private static final String URL = "jdbc:mysql://localhost:3306/ebook_management?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root"; // MySQL password
+    // Database configuration - reads from environment variables for cloud deployment
+    private static final String DB_HOST = System.getenv("MYSQLHOST") != null ? System.getenv("MYSQLHOST") : "localhost";
+    private static final String DB_PORT = System.getenv("MYSQLPORT") != null ? System.getenv("MYSQLPORT") : "3306";
+    private static final String DB_NAME = System.getenv("MYSQLDATABASE") != null ? System.getenv("MYSQLDATABASE") : "ebook_management";
+    private static final String USERNAME = System.getenv("MYSQLUSER") != null ? System.getenv("MYSQLUSER") : "root";
+    private static final String PASSWORD = System.getenv("MYSQLPASSWORD") != null ? System.getenv("MYSQLPASSWORD") : "root";
+    private static final String URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     
     // Singleton instance
